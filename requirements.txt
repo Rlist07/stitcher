@@ -3,3 +3,4 @@ numpy>=1.19.0
 pillow>=8.0.0
 tqdm>=4.50.0
 configparser>=5.0.0
+flask>=2.0.0

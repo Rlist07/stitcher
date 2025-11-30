@@ -1,0 +1,1 @@
+"""Viewer module for the balloon panorama processor."""

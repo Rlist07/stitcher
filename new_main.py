@@ -1,4 +1,4 @@
-"""Main entry point for the balloon panorama processor."""
+"""Main entry point for the balloon panorama processor with viewer support."""
 import argparse
 from pathlib import Path
 import logging
@@ -6,7 +6,7 @@ import sys
 
 # Add the src directory to the path so we can import our modules
 src_path = Path(__file__).parent
-sys.path.insert(0, str(src_path.parent))  # Go up to the project root
+sys.path.insert(0, str(src_path.parent))  # Go up to the project directory
 
 from src.config.settings import Settings
 from src.processing.pipeline import ProcessingPipeline
@@ -62,7 +62,7 @@ def main():
     )
 
     logger = logging.getLogger(__name__)
-
+    
     # If no input directory is provided but view flag is set, just start the viewer
     if not args.input_dir and args.view:
         logger.info("Starting viewer without processing new images...")
@@ -96,7 +96,7 @@ def main():
     if success:
         logger.info("Processing completed successfully!")
         print(f"Panorama saved to: {args.output}")
-
+        
         # If view flag is set, start the viewer
         if args.view:
             logger.info("Starting viewer...")

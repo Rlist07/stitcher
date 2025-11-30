@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balloon Panorama Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Using CDN for Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    
+    <div id="info" class="loading-element">Balloon Panorama Viewer - Drag to look around, scroll to zoom</div>
+    
+    <div id="loading">Loading panorama...</div>
+    
+    <div id="error-message"></div>
+    
+    <div id="controls" class="loading-element">
+        <button id="zoom-in" class="control-btn">Zoom In</button>
+        <button id="zoom-out" class="control-btn">Zoom Out</button>
+        <button id="reset-view" class="control-btn">Reset View</button>
+        <button id="fullscreen" class="control-btn">Fullscreen</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/panorama-viewer.js') }}"></script>
+</body>
+</html>
