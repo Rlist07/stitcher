@@ -1,0 +1,12 @@
+{
+  "blur_threshold": 50.0,
+  "resize_width": 800,
+  "resize_height": 600,
+  "sift_features": 2000,
+  "matcher_ratio": 0.7,
+  "ransac_threshold": 5.0,
+  "panorama_mode": "panorama",
+  "enable_blur_filter": true,
+  "enable_resize": true,
+  "enable_fallback": true
+}
