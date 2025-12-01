@@ -90,7 +90,19 @@ class ImagePreprocessor:
             output_path = f"temp/{path.stem}_resized{path.suffix}"
 
         try:
-            success = cv2.imwrite(output_path, resized)
+            # Set compression parameters for higher quality output
+            if str(output_path).lower().endswith(('.jpg', '.jpeg')):
+                # For JPEG files, use high quality (95%)
+                compression_params = [cv2.IMWRITE_JPEG_QUALITY, 95]
+                success = cv2.imwrite(output_path, resized, compression_params)
+            elif str(output_path).lower().endswith('.png'):
+                # For PNG files, use high compression level (1-9, where 9 is highest compression)
+                compression_params = [cv2.IMWRITE_PNG_COMPRESSION, 1]  # Less compression = higher quality
+                success = cv2.imwrite(output_path, resized, compression_params)
+            else:
+                # For other formats or default
+                success = cv2.imwrite(output_path, resized)
+
             if not success:
                 self.logger.error(f"Failed to write resized image to {output_path}")
                 raise IOError(f"Could not write image to {output_path}")

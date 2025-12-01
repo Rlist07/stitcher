@@ -11,16 +11,16 @@ class Settings:
         """Initialize settings with default values or from config file."""
         # Default settings
         self.blur_threshold = 100.0
-        self.resize_width = 800
-        self.resize_height = 600
+        self.resize_width = 0
+        self.resize_height = 0
         self.sift_features = 2000
         self.matcher_ratio = 0.7
         self.ransac_threshold = 5.0
         self.panorama_mode = "panorama"  # or "scans"
-        
+
         # Process settings
         self.enable_blur_filter = True
-        self.enable_resize = True
+        self.enable_resize = False
         self.enable_fallback = True
         
         # Load from config file if provided

@@ -69,8 +69,8 @@ class ProcessingPipeline:
             self.logger.info("Step 3: Projecting to equirectangular format...")
             equirectangular = self.projector.to_equirectangular(
                 stitched_panorama, 
-                width=2048, 
-                height=1024
+                width=16384,
+                height=8192
             )
             
             # Validate the output
@@ -81,7 +81,19 @@ class ProcessingPipeline:
             output_path = Path(output_path)
             output_path.parent.mkdir(parents=True, exist_ok=True)
             
-            success = cv2.imwrite(str(output_path), equirectangular)
+            # Set compression parameters for higher quality output
+            if str(output_path).lower().endswith(('.jpg', '.jpeg')):
+                # For JPEG files, use high quality (95%)
+                compression_params = [cv2.IMWRITE_JPEG_QUALITY, 95]
+                success = cv2.imwrite(str(output_path), equirectangular, compression_params)
+            elif str(output_path).lower().endswith('.png'):
+                # For PNG files, use high compression level (1-9, where 9 is highest compression)
+                compression_params = [cv2.IMWRITE_PNG_COMPRESSION, 1]  # Less compression = higher quality
+                success = cv2.imwrite(str(output_path), equirectangular, compression_params)
+            else:
+                # For other formats or default
+                success = cv2.imwrite(str(output_path), equirectangular)
+
             if success:
                 self.logger.info(f"Final panorama saved to: {output_path}")
             else:
@@ -143,8 +155,19 @@ class ProcessingPipeline:
             output_path = Path(output_path)
             output_path.parent.mkdir(parents=True, exist_ok=True)
             
-            success = cv2.imwrite(str(output_path), equirectangular)
-            
+            # Set compression parameters for higher quality output
+            if str(output_path).lower().endswith(('.jpg', '.jpeg')):
+                # For JPEG files, use high quality (95%)
+                compression_params = [cv2.IMWRITE_JPEG_QUALITY, 95]
+                success = cv2.imwrite(str(output_path), equirectangular, compression_params)
+            elif str(output_path).lower().endswith('.png'):
+                # For PNG files, use high compression level (1-9, where 9 is highest compression)
+                compression_params = [cv2.IMWRITE_PNG_COMPRESSION, 1]  # Less compression = higher quality
+                success = cv2.imwrite(str(output_path), equirectangular, compression_params)
+            else:
+                # For other formats or default
+                success = cv2.imwrite(str(output_path), equirectangular)
+
             if success:
                 self.logger.info(f"Processed image saved to: {output_path}")
                 return True

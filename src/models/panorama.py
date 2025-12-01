@@ -40,7 +40,18 @@ class Panorama:
         if self.image is not None:
             output_path = Path(output_path)
             output_path.parent.mkdir(parents=True, exist_ok=True)
-            cv2.imwrite(str(output_path), self.image)
+            # Set compression parameters for higher quality output
+            if str(output_path).lower().endswith(('.jpg', '.jpeg')):
+                # For JPEG files, use high quality (95%)
+                compression_params = [cv2.IMWRITE_JPEG_QUALITY, 95]
+                cv2.imwrite(str(output_path), self.image, compression_params)
+            elif str(output_path).lower().endswith('.png'):
+                # For PNG files, use high compression level (1-9, where 9 is highest compression)
+                compression_params = [cv2.IMWRITE_PNG_COMPRESSION, 1]  # Less compression = higher quality
+                cv2.imwrite(str(output_path), self.image, compression_params)
+            else:
+                # For other formats or default
+                cv2.imwrite(str(output_path), self.image)
     
     def save_metadata(self, metadata_path: str):
         """Save panorama metadata to a JSON file."""
