@@ -1,5 +1,3 @@
-"""Processing module for the balloon panorama processor."""
-
 from .preprocessor import ImagePreprocessor
 from .stitcher import PanoramaStitcher
 from .feature_matcher import FeatureMatcher
